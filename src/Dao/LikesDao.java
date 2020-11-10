@@ -2,14 +2,15 @@ package Dao;
 
 import Model.Likes;
 import Model.Recipes;
+import Model.Users;
 
-import java.awt.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 public class LikesDao {
 
@@ -39,8 +40,8 @@ public class LikesDao {
       connection = connectionManager.getConnection();
       insertStmt = connection.prepareStatement(insertLikes,
           Statement.RETURN_GENERATED_KEYS);
-      insertStmt.setInt(1, likes.getRecipeID());
-      insertStmt.setInt(2, likes.getUserId());
+      insertStmt.setInt(1, likes.getRecipe().getRecipeId());
+      insertStmt.setInt(2, likes.getUsers().getUserId());
       insertStmt.executeUpdate();
 
       // Retrieve the auto-generated key and set it, so it can be used by the caller.
@@ -89,10 +90,9 @@ public class LikesDao {
         int recipeID = results.getInt("RecipeID");
         int userId = results.getInt("UserId");
 
-        //TODO: GET recipes by recipeId, and get users by userid
-        Recipes recipe = recipesDao.
-            Users users = usersDao.
-            Likes likes = new Favorites(resultLikeId, recipe, users);
+        Recipes recipe = recipesDao.getRecipeById(recipeID);
+        Users users = usersDao.getUsersById(userId);
+        Likes likes = new Likes(resultLikeId, recipe, users);
         return likes;
       }
     } catch (SQLException e) {
@@ -126,16 +126,15 @@ public class LikesDao {
       selectStmt = connection.prepareStatement(selectLikes);
       selectStmt.setInt(1, userId);
       results = selectStmt.executeQuery();
-      RecipesDao recipeDao = RecipesDao.getInstance();
+      RecipesDao recipesDao = RecipesDao.getInstance();
       UsersDao usersDao = UsersDao.getInstance();
       while(results.next()) {
         int likeId = results.getInt("LikeId");
         int recipeID = results.getInt("RecipeID");
 
-        //TODO: GET recipes by recipeId, and get users by userid
-        Recipe recipe = blogPostsDao.
-            Users users = usersDao.
-            Likes likes = new Favorites(likeId, recipe, users);
+        Recipes recipe = recipesDao.getRecipeById(recipeID);
+        Users users = usersDao.getUsersById(userId);
+        Likes likes = new Likes(likeId, recipe, users);
         likesList.add(likes);
       }
     } catch (SQLException e) {
@@ -165,9 +164,9 @@ public class LikesDao {
       updateStmt.setInt(1, recipeId);
       updateStmt.setInt(2, likes.getLikeId());
       updateStmt.executeUpdate();
-
-      // Update the blogComment param before returning to the caller.
-      likes.setRecipeID(recipeId);
+      RecipesDao recipesDao = RecipesDao.getInstance();
+      Recipes recipe = recipesDao.getRecipeById(recipeId);
+      likes.setRecipe(recipe);
       return likes;
     } catch (SQLException e) {
       e.printStackTrace();

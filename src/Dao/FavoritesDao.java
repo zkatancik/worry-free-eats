@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import Model.Favorites;
 import Model.Recipes;
@@ -35,8 +37,8 @@ public class FavoritesDao {
 	      connection = connectionManager.getConnection();
 	      insertStmt = connection.prepareStatement(insertFavorites,
 	          Statement.RETURN_GENERATED_KEYS);
-	      insertStmt.setInt(1, favorites.getRecipeID());
-	      insertStmt.setInt(2, favorites.getUserId());
+	      insertStmt.setInt(1, favorites.getRecipe().getRecipeId());
+	      insertStmt.setInt(2, favorites.getUsers().getUserId());
 	      insertStmt.executeUpdate();
 
 	      // Retrieve the auto-generated key and set it, so it can be used by the caller.
@@ -84,10 +86,8 @@ public class FavoritesDao {
 	        int resultFavoriteId = results.getInt("FavoriteId");
 	        int recipeID = results.getInt("RecipeID");
 	        int userId = results.getInt("UserId");
-
-	        //TODO: GET recipes by recipeId, and get users by userid
-	        Recipes recipe = recipeDao.
-	        Users users = usersDao.
+	        Recipes recipe = recipeDao.getRecipeById(recipeID);
+	        Users users = usersDao.getUsersById(userId);
 	        Favorites favorites = new Favorites(resultFavoriteId, recipe, users);
 	        return favorites;
 	      }
@@ -128,9 +128,8 @@ public class FavoritesDao {
 	        int favoriteId = results.getInt("FavoriteId");
 	        int recipeID = results.getInt("RecipeID");
 
-	        //TODO: GET recipes by recipeId, and get users by userid
-	        Recipes recipe = recipeDao.
-	        Users users = usersDao.
+	        Recipes recipe = recipeDao.getRecipeById(recipeID);
+	        Users users = usersDao.getUsersById(userId);
 	        Favorites favorites = new Favorites(favoriteId, recipe, users);
 	        favoritesList.add(favorites);
 	      }
@@ -161,9 +160,9 @@ public class FavoritesDao {
 	      updateStmt.setInt(1, recipeId);
 	      updateStmt.setInt(2, favorites.getFavoriteId());
 	      updateStmt.executeUpdate();
-
-	      // Update the blogComment param before returning to the caller.
-	      favorites.setRecipeID(recipeId);
+	      RecipesDao recipesDao = RecipesDao.getInstance();
+	      Recipes recipe = recipesDao.getRecipeById(recipeId);
+	      favorites.setRecipe(recipe);
 	      return favorites;
 	    } catch (SQLException e) {
 	      e.printStackTrace();

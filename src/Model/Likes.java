@@ -2,22 +2,16 @@ package Model;
 
 public class Likes {
   protected int likeId;
-  protected int recipeID;
-  protected int userId;
   protected Recipes recipe;
   protected Users users;
 
-  public Likes(int likeId, int recipeID, int userId, Recipes recipe, Users users) {
+  public Likes(int likeId, Recipes recipe, Users users) {
     this.likeId = likeId;
-    this.recipeID = recipeID;
-    this.userId = userId;
     this.recipe = recipe;
     this.users = users;
   }
 
-  public Likes(int recipeID, int userId, Recipes recipe, Users users) {
-    this.recipeID = recipeID;
-    this.userId = userId;
+  public Likes(Recipes recipe, Users users) {
     this.recipe = recipe;
     this.users = users;
   }
@@ -32,22 +26,6 @@ public class Likes {
 
   public void setLikeId(int likeId) {
     this.likeId = likeId;
-  }
-
-  public int getRecipeID() {
-    return recipeID;
-  }
-
-  public void setRecipeID(int recipeID) {
-    this.recipeID = recipeID;
-  }
-
-  public int getUserId() {
-    return userId;
-  }
-
-  public void setUserId(int userId) {
-    this.userId = userId;
   }
 
   public Recipes getRecipe() {
@@ -70,8 +48,6 @@ public class Likes {
   public String toString() {
     return "Likes{" +
         "likeId=" + likeId +
-        ", recipeID=" + recipeID +
-        ", userId=" + userId +
         ", recipe=" + recipe +
         ", users=" + users +
         '}';
