@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import eat.model.Reviews;
+import Model.Reviews;
 
 public class ReviewsDao {
 	private ConnectionManager connectionManager;

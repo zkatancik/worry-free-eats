@@ -84,7 +84,6 @@ public class UserAllergiesDao {
     PreparedStatement selectStmt = null;
     ResultSet results = null;
     try {
-      UsersDao usersDao = UsersDao.getInstance();
       connection = connectionManager.getConnection();
       selectStmt = connection.prepareStatement(selectUserAllergies);
       selectStmt.setString(1, userName);
