@@ -110,6 +110,30 @@ public class RecipesDao {
     }
   }
 
+  public Recipes updateImageUrl(Recipes recipe, String newImageUrl) throws SQLException {
+    String updateRecipe = "UPDATE Recipes SET ImageUrl=? WHERE RecipeId = ?;";
+    Connection connection = connectionManager.getConnection();
+    PreparedStatement preparedStatement = null;
+    try {
+      connection = connectionManager.getConnection();
+      preparedStatement = connection.prepareStatement(updateRecipe);
+      preparedStatement.setString(1, newImageUrl);
+      preparedStatement.setInt(2, recipe.getRecipeId());
+      preparedStatement.executeUpdate();
+      return recipe;
+    } catch(SQLException e) {
+      e.printStackTrace();
+      throw e;
+    } finally {
+      if(connection!=null) {
+        connection.close();
+      }
+      if(preparedStatement!=null) {
+        preparedStatement.close();
+      }
+    }
+  }
+
   public Recipes delete(Recipes recipe) throws SQLException {
     String deleteRecipe = "DELETE FROM Recipes WHERE RecipeId=?;";
     Connection connection = null;
