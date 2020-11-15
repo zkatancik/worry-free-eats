@@ -72,7 +72,7 @@ public class FindRecipes extends HttpServlet {
       } catch (SQLException e) {
         e.printStackTrace();
       }
-      messages.put("success", "Displaying " + totalRecipesCnt + " results for keyword \"" + keyword + "\"");
+      messages.put("success", "Displaying " + totalRecipesCnt + " result(s) for keyword \"" + keyword + "\"");
     }
     req.setAttribute("recipesList", recipesList);
     req.setAttribute("pageIndex", recordOffset / pageSize + 1);
