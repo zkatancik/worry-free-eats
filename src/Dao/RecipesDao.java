@@ -23,19 +23,27 @@ public class RecipesDao {
     return instance;
   }
 
-  public Recipes create(Recipes recipes) throws SQLException {
-    String insert = "INSERT INTO Recipe(RecipeId, RecipeName, ImageUrl) VALUES(?,?,?);";
+  public Recipes create(Recipes recipe) throws SQLException {
+    String insert = "INSERT INTO Recipe(RecipeName, ImageUrl) VALUES(?,?);";
     Connection connection = null;
     PreparedStatement insertStmt = null;
+    ResultSet resultKey = null;
     try {
       connection = connectionManager.getConnection();
-      insertStmt = connection.prepareStatement(insert);
-      insertStmt.setInt(1, recipes.getRecipeId());
-      insertStmt.setString(2, recipes.getRecipeName());
-      insertStmt.setString(3, recipes.getImageUrl());
-
+      insertStmt = connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
+      insertStmt.setString(1, recipe.getRecipeName());
+      insertStmt.setString(2, recipe.getImageUrl());
       insertStmt.executeUpdate();
-      return recipes;
+
+      resultKey = insertStmt.getGeneratedKeys();
+      int recipeId = -1;
+      if (resultKey.next()) {
+        recipeId = resultKey.getInt(1);
+      } else {
+        throw new SQLException("Unable to retrieve auto-generated key.");
+      }
+      recipe.setRecipeId(recipeId);
+      return recipe;
     } catch (SQLException e) {
       e.printStackTrace();
       throw e;

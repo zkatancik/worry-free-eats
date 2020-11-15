@@ -7,10 +7,12 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@WebServlet("/createrecipe")
 public class CreateRecipe extends HttpServlet {
   protected RecipesDao recipesDao;
   @Override
@@ -21,7 +23,10 @@ public class CreateRecipe extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    doPost(req, resp);
+    Map<String, String> messages = new HashMap<String, String>();
+    req.setAttribute("messages", messages);
+    //Just render the JSP.
+    req.getRequestDispatcher("/CreateRecipe.jsp").forward(req, resp);
   }
 
   @Override
