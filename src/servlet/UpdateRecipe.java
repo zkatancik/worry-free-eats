@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class UpdateRecipes extends HttpServlet {
+public class UpdateRecipe extends HttpServlet {
   protected RecipesDao recipesDao;
 
   @Override
@@ -50,6 +50,6 @@ public class UpdateRecipes extends HttpServlet {
       throw new IOException(e);
     }
 
-    req.getRequestDispatcher("UpdateRecipes.jsp").forward(req, resp);
+    req.getRequestDispatcher("UpdateRecipe.jsp").forward(req, resp);
   }
 }
