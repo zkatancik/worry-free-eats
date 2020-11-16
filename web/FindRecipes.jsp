@@ -52,7 +52,7 @@
                 <td><c:out value="${recipe.getRecipeId()}" /></td>
                 <td><c:out value="${recipe.getRecipeName()}" /></td>
                 <td><a href="updaterecipe?recipeid=<c:out value="${recipe.getRecipeId()}"/>&recipename=<c:out value="${recipe.getRecipeName()}"/>&imgurl=<c:out value="${recipe.getImageUrl()}"/>">Update</a></td>
-<%--                <td><a href="deleterecipe?username=<c:out value="${recipe.getUserName()}"/>">Delete</a></td>--%>
+                <td><a href="deleterecipe?recipeid=<c:out value="${recipe.getRecipeId()}"/>&recipename=<c:out value="${recipe.getRecipeName()}"/>">Delete</a></td>
                     <%--            <td><a href="userdelete?username=<c:out value="${recipe.getUserName()}"/>">Delete</a></td>--%>
                     <%--            <td><a href="userupdate?username=<c:out value="${recipe.getUserName()}"/>">Update</a></td>--%>
             </tr>

@@ -1,16 +1,17 @@
 package servlet;
 
 import Dao.RecipesDao;
-import Model.Recipes;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@WebServlet("/deleterecipe")
 public class DeleteRecipe extends HttpServlet {
   protected RecipesDao recipesDao;
 
@@ -42,15 +43,13 @@ public class DeleteRecipe extends HttpServlet {
 
     try {
       if (recipesDao.delete(recipeId) == null) {
-        messages.put("title", "Successfully deleted " + recipeName);
-        messages.put("disableSubmit", "true");
+        messages.put("title", "Successfully deleted \"" + recipeId + ", " + recipeName + "\"");
       } else {
-        messages.put("title", "Failed to delete " + recipeName);
-        messages.put("disableSubmit", "false");
+        messages.put("title", "Failed to delete \"" + recipeId + ", " + recipeName + "\"");
       }
     } catch (SQLException e) {
       e.printStackTrace();
-      throw new IOException(e);
+      messages.put("title", "No records available to delete for \"" + recipeId + ", " + recipeName + "\"");
     }
 
 
