@@ -7,10 +7,12 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@WebServlet("/updaterecipe")
 public class UpdateRecipe extends HttpServlet {
   protected RecipesDao recipesDao;
 
@@ -22,7 +24,21 @@ public class UpdateRecipe extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    doPost(req, resp);
+    Map<String, String> messages = new HashMap<>();
+    req.setAttribute("messages", messages);
+
+    try {
+      int recipeId = Integer.parseInt(req.getParameter("recipeid"));
+      Recipes recipe = recipesDao.getRecipeById(recipeId);
+      if (null == recipe) {
+        messages.put("success", "Recipe id does not exist.");
+      }
+    } catch (NumberFormatException | SQLException e) {
+      e.printStackTrace();
+      throw new IOException(e);
+    }
+
+    req.getRequestDispatcher("UpdateRecipe.jsp").forward(req, resp);
   }
 
   @Override
@@ -37,11 +53,12 @@ public class UpdateRecipe extends HttpServlet {
       if (null == recipe) {
         messages.put("success", "Please enter a valid recipeId");
       } else {
-        String newImgUrl = req.getParameter("newurl");
-        if (null == newImgUrl || newImgUrl.trim().isEmpty()) {
-          messages.put("success", "Please enter a valid url");
+        String newRecipeName = req.getParameter("recipename");
+        String newImgUrl = req.getParameter("imgurl");
+        if (null == newImgUrl || newImgUrl.trim().isEmpty() || null == newRecipeName || newRecipeName.trim().isEmpty()) {
+          messages.put("success", "Please enter valid recipe info");
         } else {
-          recipe = recipesDao.updateImageUrl(recipe, newImgUrl);
+          recipe = recipesDao.updateRecipe(recipe, newRecipeName, newImgUrl);
           messages.put("success", "Successfully updated recipeId " + recipeId);
         }
       }

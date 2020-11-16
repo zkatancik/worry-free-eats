@@ -43,16 +43,16 @@
             <th>Image</th>
             <th>RecipeId</th>
             <th>RecipeName</th>
-            <th>Delete Recipe</th>
             <th>Update Recipe</th>
+            <th>Delete Recipe</th>
         </tr>
         <c:forEach items="${recipesList}" var="recipe">
             <tr>
                 <td><img src="<c:out value="${recipe.getImageUrl()}"/>" alt="N/A" width="100"></td>
                 <td><c:out value="${recipe.getRecipeId()}" /></td>
                 <td><c:out value="${recipe.getRecipeName()}" /></td>
-                    <%--            <td><a href="userblogposts?username=<c:out value="${recipe.getUserName()}"/>">BlogPosts</a></td>--%>
-                    <%--            <td><a href="blogcomments?username=<c:out value="${recipe.getUserName()}"/>">BlogComments</a></td>--%>
+                <td><a href="updaterecipe?recipeid=<c:out value="${recipe.getRecipeId()}"/>&recipename=<c:out value="${recipe.getRecipeName()}"/>&imgurl=<c:out value="${recipe.getImageUrl()}"/>">Update</a></td>
+<%--                <td><a href="deleterecipe?username=<c:out value="${recipe.getUserName()}"/>">Delete</a></td>--%>
                     <%--            <td><a href="userdelete?username=<c:out value="${recipe.getUserName()}"/>">Delete</a></td>--%>
                     <%--            <td><a href="userupdate?username=<c:out value="${recipe.getUserName()}"/>">Update</a></td>--%>
             </tr>

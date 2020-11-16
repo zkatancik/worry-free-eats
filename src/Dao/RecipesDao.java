@@ -153,15 +153,16 @@ public class RecipesDao {
     return cnt;
   }
 
-  public Recipes updateImageUrl(Recipes recipe, String newImageUrl) throws SQLException {
-    String updateRecipe = "UPDATE Recipes SET ImageUrl=? WHERE RecipeId = ?;";
+  public Recipes updateRecipe(Recipes recipe, String newRecipeName, String newImageUrl) throws SQLException {
+    String updateRecipe = "UPDATE Recipe SET RecipeName=?,ImageUrl=? WHERE RecipeId = ?;";
     Connection connection = connectionManager.getConnection();
     PreparedStatement preparedStatement = null;
     try {
       connection = connectionManager.getConnection();
       preparedStatement = connection.prepareStatement(updateRecipe);
-      preparedStatement.setString(1, newImageUrl);
-      preparedStatement.setInt(2, recipe.getRecipeId());
+      preparedStatement.setString(1, newRecipeName);
+      preparedStatement.setString(2, newImageUrl);
+      preparedStatement.setInt(3, recipe.getRecipeId());
       preparedStatement.executeUpdate();
       return recipe;
     } catch(SQLException e) {
@@ -178,7 +179,7 @@ public class RecipesDao {
   }
 
   public Recipes delete(Recipes recipe) throws SQLException {
-    String deleteRecipe = "DELETE FROM Recipes WHERE RecipeId=?;";
+    String deleteRecipe = "DELETE FROM Recipe WHERE RecipeId=?;";
     Connection connection = null;
     PreparedStatement deleteStmt = null;
     try {
@@ -204,7 +205,7 @@ public class RecipesDao {
   }
 
   public Recipes delete(int recipeId) throws SQLException {
-    String deleteRecipe = "DELETE FROM Recipes WHERE RecipeId=?;";
+    String deleteRecipe = "DELETE FROM Recipe WHERE RecipeId=?;";
     Connection connection = null;
     PreparedStatement deleteStmt = null;
     try {
