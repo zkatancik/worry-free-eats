@@ -36,7 +36,7 @@ public class IngredientCreate extends HttpServlet {
         Map<String, String> messages = new HashMap<String, String>();
         req.setAttribute("messages", messages);
         //Just render the JSP.   
-        req.getRequestDispatcher("/IngredientCreate.jsp").forward(req, resp);
+        req.getRequestDispatcher("/CreateIngredient.jsp").forward(req, resp);
 	}
 	
 	@Override
@@ -53,8 +53,10 @@ public class IngredientCreate extends HttpServlet {
         } else {
             // Create the BlogUser.
             int ingredientId = Integer.parseInt(ingredientIdAsString);
-        	String name = req.getParameter("name");
-        	AllergyTypes allergyTypes = req.getParameter("allergyTypes");
+            String name = null;
+            name = req.getParameter("name");
+            AllergyTypes allergyTypes = null;
+        	allergyTypes = req.getParameter("allergyTypes");
 	        try {
 	        	// Exercise: parse the input for StatusLevel.
 	        	Ingredient ingredient = new Ingredient(ingredientId, name, allergyTypes);

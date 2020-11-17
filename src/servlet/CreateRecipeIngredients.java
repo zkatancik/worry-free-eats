@@ -53,8 +53,12 @@ public class RecipeIngredientsCreate extends HttpServlet {
         } else {
             // Create the BlogUser.
             int recipeIngredientsId = Integer.parseInt(recipeIngredientsIdAsString);
-        	Recipes recipe = req.getParameter("recipe");
-        	Ingredient ingredient = req.getParameter("ingredient");
+        	String recipeIdAsString = req.getParameter("recipe");
+            String ingredientIdAsString = req.getParameter("ingredient");
+            RecipesDao recipesDao = RecipesDao.getInstance();
+            IngredientDao ingredientDao = IngredientDao.getInstance();
+            Recipes recipe = recipesDao.getRecipeById(Integer.parseInt(recipeIdAsString));
+            Ingredient ingredient = ingredientDao.getIngredientById(Integer.parseInt(ingredientIdAsString));
 	        try {
 	        	// Exercise: parse the input for StatusLevel.
 	        	RecipeIngredients recipeIngredients = new RecipeIngredients(recipeIngredientsId, recipe, ingredient);
