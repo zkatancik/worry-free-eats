@@ -7,9 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -38,8 +36,8 @@ public class RecipeIngredientsDao {
 			connection = connectionManager.getConnection();
 			insertStmt = connection.prepareStatement(insertRecipeIngredient,
 				Statement.RETURN_GENERATED_KEYS);
-			insertStmt.setString(1, recipeIngredient.getRecipeId());
-			insertStmt.setInt(2, recipeIngredient.getIngredientId());
+			insertStmt.setInt(1, recipeIngredient.getRecipe().getRecipeId());
+			insertStmt.setInt(2, recipeIngredient.getIngredient().getIngredientId());
 			insertStmt.executeUpdate();
 			
 			// Retrieve the auto-generated key and set it, so it can be used by the caller.
@@ -122,7 +120,7 @@ public class RecipeIngredientsDao {
             IngredientDao ingredientDao = IngredientDao.getInstance();
 			if(results.next()) {
 				int resultRecipeIngredientsId = results.getInt("RecipeIngredientsId");
-				int recipeId = results.getString("RecipeId");
+				int recipeId = results.getInt("RecipeId");
 				int ingredientId = results.getInt("IngredientId");
 				
                 Recipes recipe = recipesDao.getRecipeById(recipeId);
@@ -168,7 +166,7 @@ public class RecipeIngredientsDao {
             IngredientDao ingredientDao = IngredientDao.getInstance();
 			while(results.next()) {
 				int recipeIngredientsId = results.getInt("RecipeIngredientsId");
-				int resultRecipeId = results.getString("RecipeId");
+				int resultRecipeId = results.getInt("RecipeId");
 				int ingredientId = results.getInt("IngredientId");
 				
                 Recipes resultRecipe = recipesDao.getRecipeById(resultRecipeId);

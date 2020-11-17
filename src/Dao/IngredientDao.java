@@ -7,9 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -39,7 +37,7 @@ public class IngredientDao {
 			insertStmt = connection.prepareStatement(insertIngredient,
 				Statement.RETURN_GENERATED_KEYS);
 			insertStmt.setString(1, ingredient.getName());
-			insertStmt.setInt(2, ingredient.getAllergyTypesId());
+			insertStmt.setInt(2, ingredient.getAllergyTypes().getAllergyTypesId());
 			insertStmt.executeUpdate();
 			
 			// Retrieve the auto-generated key and set it, so it can be used by the caller.
@@ -155,7 +153,7 @@ public class IngredientDao {
 				String Name = results.getString("Name");
 				int allergyTypesId = results.getInt("AllergyTypesId");
 				
-				AllergyTypes allergyTypes = allergyTypesDao.getAllergyTypesById(allergyTypesId);
+				AllergyTypes allergyTypes = allergyTypesDao.getAllergyByAllergyTypesId(allergyTypesId);
 				Ingredient ingredient = new Ingredient(resultIngredientId, Name, allergyTypes);
 				return ingredient;
 			}
@@ -191,7 +189,7 @@ public class IngredientDao {
 		try {
 			connection = connectionManager.getConnection();
 			selectStmt = connection.prepareStatement(selectIngredient);
-			selectStmt.setInt(1, allergyTypes.getAllergyTypesId();
+			selectStmt.setInt(1, allergyTypes.getAllergyTypesId());
 			results = selectStmt.executeQuery();
 			AllergyTypesDao allergyTypesDao = AllergyTypesDao.getInstance();
 			while(results.next()) {
@@ -199,7 +197,7 @@ public class IngredientDao {
 				String Name = results.getString("Name");
 				int resultAllergyTypesId = results.getInt("AllergyTypesId");
 				
-				AllergyTypes resultAllergyTypes = allergyTypesDao.getAllergyTypesById(resultAllergyTypesId);
+				AllergyTypes resultAllergyTypes = allergyTypesDao.getAllergyByAllergyTypesId(resultAllergyTypesId);
 				Ingredient ingredient = new Ingredient(ingredientId, Name, resultAllergyTypes);
 				ingredients.add(ingredient);
 			}
@@ -218,5 +216,5 @@ public class IngredientDao {
 			}
 		}
 		return ingredients;
-	
+	}
 }

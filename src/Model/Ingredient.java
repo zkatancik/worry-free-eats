@@ -5,7 +5,7 @@ package Model;
 public class Ingredient {
     protected int ingredientId;
     protected String name;
-    protected int allergyTypes;
+    protected AllergyTypes allergyTypes;
 
 	public Ingredient(int ingredientId, String name, AllergyTypes allergyTypes) {
 		this.ingredientId = ingredientId;
@@ -31,11 +31,11 @@ public class Ingredient {
 		this.name = name;
 	}
 
-	public int getAllergyTypes() {
+	public AllergyTypes getAllergyTypes() {
 		return allergyTypes;
 	}
 
-	public void setAllergyTypes(int allergyTypesId) {
+	public void setAllergyTypes(AllergyTypes allergyTypes) {
 		this.allergyTypes = allergyTypes;
 	}
 
