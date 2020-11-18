@@ -77,6 +77,10 @@
         </option>
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.Inserter" />
+      <item itemvalue="Tomcat Server.Tomcat 9.0.39" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Inserter" />

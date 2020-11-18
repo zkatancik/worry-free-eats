@@ -57,10 +57,10 @@ public class RecipeIngredientsCreate extends HttpServlet {
             String ingredientIdAsString = req.getParameter("ingredient");
             RecipesDao recipesDao = RecipesDao.getInstance();
             IngredientDao ingredientDao = IngredientDao.getInstance();
-            Recipes recipe = recipesDao.getRecipeById(Integer.parseInt(recipeIdAsString));
-            Ingredient ingredient = ingredientDao.getIngredientById(Integer.parseInt(ingredientIdAsString));
 	        try {
 	        	// Exercise: parse the input for StatusLevel.
+						Recipes recipe = recipesDao.getRecipeById(Integer.parseInt(recipeIdAsString));
+						Ingredient ingredient = ingredientDao.getIngredientById(Integer.parseInt(ingredientIdAsString));
 	        	RecipeIngredients recipeIngredients = new RecipeIngredients(recipeIngredientsId, recipe, ingredient);
 	        	recipeIngredients = recipeIngredientsDao.create(recipeIngredients);
 	        	messages.put("success", "Successfully created " + recipeIngredientsIdAsString);
