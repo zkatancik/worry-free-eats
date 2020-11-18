@@ -54,11 +54,13 @@ public class UpdateRecipe extends HttpServlet {
         messages.put("success", "Please enter a valid recipeId");
       } else {
         String newRecipeName = req.getParameter("recipename");
+        String newCookingDirects = req.getParameter("cookingdirects");
         String newImgUrl = req.getParameter("imgurl");
-        if (null == newImgUrl || newImgUrl.trim().isEmpty() || null == newRecipeName || newRecipeName.trim().isEmpty()) {
+        if (null == newImgUrl || newImgUrl.trim().isEmpty() || null == newRecipeName || newRecipeName.trim().isEmpty()
+        || null == newCookingDirects || newCookingDirects.trim().isEmpty()) {
           messages.put("success", "Please enter valid recipe info");
         } else {
-          recipe = recipesDao.updateRecipe(recipe, newRecipeName, newImgUrl);
+          recipe = recipesDao.updateRecipe(recipe, newRecipeName, newCookingDirects, newImgUrl);
           messages.put("success", "Successfully updated recipeId " + recipeId);
         }
       }

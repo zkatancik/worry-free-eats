@@ -24,7 +24,7 @@ public class RecipesDao {
   }
 
   public Recipes create(Recipes recipe) throws SQLException {
-    String insert = "INSERT INTO Recipe(RecipeName, ImageUrl) VALUES(?,?);";
+    String insert = "INSERT INTO Recipe(RecipeName,CookingDirects,ImageUrl) VALUES(?,?,?);";
     Connection connection = null;
     PreparedStatement insertStmt = null;
     ResultSet resultKey = null;
@@ -32,7 +32,8 @@ public class RecipesDao {
       connection = connectionManager.getConnection();
       insertStmt = connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
       insertStmt.setString(1, recipe.getRecipeName());
-      insertStmt.setString(2, recipe.getImageUrl());
+      insertStmt.setString(2, recipe.getCookingDirects());
+      insertStmt.setString(3, recipe.getImageUrl());
       insertStmt.executeUpdate();
 
       resultKey = insertStmt.getGeneratedKeys();
@@ -58,7 +59,7 @@ public class RecipesDao {
   }
 
   public Recipes getRecipeById(int recipeId) throws SQLException {
-    String getRecipe = "SELECT RecipeId,RecipeName,ImageUrl FROM Recipe WHERE RecipeId=?;";
+    String getRecipe = "SELECT RecipeId,RecipeName,CookingDirects,ImageUrl FROM Recipe WHERE RecipeId=?;";
     Connection connection = null;
     PreparedStatement selectStmt = null;
     ResultSet resultSet = null;
@@ -71,8 +72,9 @@ public class RecipesDao {
       if (resultSet.next()) {
         int resultRecipeId = resultSet.getInt("RecipeId");
         String recipeName = resultSet.getString("RecipeName");
+        String cookingDirects = resultSet.getString("cookingDirects");
         String imageUrl = resultSet.getString("ImageUrl");
-        recipe = new Recipes(resultRecipeId, recipeName, imageUrl);
+        recipe = new Recipes(resultRecipeId, recipeName, cookingDirects, imageUrl);
       }
       return recipe;
     } catch (SQLException e) {
@@ -89,7 +91,7 @@ public class RecipesDao {
   }
 
   public List<Recipes> getRecipesByKeyword(String keyword, int pageIndex, int pageSize) throws SQLException {
-    String getRecipe = "SELECT RecipeId,RecipeName,ImageUrl FROM Recipe WHERE INSTR(RecipeName, ?) LIMIT ?, ?;";
+    String getRecipe = "SELECT RecipeId,RecipeName,CookingDirects,ImageUrl FROM Recipe WHERE INSTR(RecipeName, ?) LIMIT ?, ?;";
     Connection connection = null;
     PreparedStatement selectStmt = null;
     ResultSet resultSet = null;
@@ -105,8 +107,9 @@ public class RecipesDao {
       while (resultSet.next()) {
         int recipeId = resultSet.getInt("RecipeId");
         String recipeName = resultSet.getString("RecipeName");
+        String cookingDirects = resultSet.getString("cookingDirects");
         String imageUrl = resultSet.getString("ImageUrl");
-        resultList.add(new Recipes(recipeId, recipeName, imageUrl));
+        resultList.add(new Recipes(recipeId, recipeName, cookingDirects, imageUrl));
       }
       return resultList;
     } catch (SQLException e) {
@@ -153,16 +156,18 @@ public class RecipesDao {
     return cnt;
   }
 
-  public Recipes updateRecipe(Recipes recipe, String newRecipeName, String newImageUrl) throws SQLException {
-    String updateRecipe = "UPDATE Recipe SET RecipeName=?,ImageUrl=? WHERE RecipeId = ?;";
+  public Recipes updateRecipe(Recipes recipe, String newRecipeName, String newCookingDirects,
+      String newImageUrl) throws SQLException {
+    String updateRecipe = "UPDATE Recipe SET RecipeName=?,CookingDirects=?,ImageUrl=? WHERE RecipeId = ?;";
     Connection connection = connectionManager.getConnection();
     PreparedStatement preparedStatement = null;
     try {
       connection = connectionManager.getConnection();
       preparedStatement = connection.prepareStatement(updateRecipe);
       preparedStatement.setString(1, newRecipeName);
-      preparedStatement.setString(2, newImageUrl);
-      preparedStatement.setInt(3, recipe.getRecipeId());
+      preparedStatement.setString(2, newCookingDirects);
+      preparedStatement.setString(3, newImageUrl);
+      preparedStatement.setInt(4, recipe.getRecipeId());
       preparedStatement.executeUpdate();
       return recipe;
     } catch(SQLException e) {

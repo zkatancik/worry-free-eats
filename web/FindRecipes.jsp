@@ -9,6 +9,9 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Find a recipe</title>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous" defer="defer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous" defer="defer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous" defer="defer"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
 <body>
@@ -38,26 +41,49 @@
             <li class="page-item"><a class="page-link" href="findrecipes?pageindex=${last}&keyword=${fn:escapeXml(param.keyword)}">>></a></li>
         </ul>
     </nav>
-    <table border="1">
-        <tr>
-            <th>Image</th>
-            <th>RecipeId</th>
-            <th>RecipeName</th>
-            <th>Update Recipe</th>
-            <th>Delete Recipe</th>
-        </tr>
+    <div class="accordion" id="accordionExample">
+<%--    <table border="1">--%>
+<%--        <tr>--%>
+<%--            <th>Image</th>--%>
+<%--            <th>RecipeId</th>--%>
+<%--            <th>RecipeName</th>--%>
+<%--            <th>Details</th>--%>
+<%--            <th>Update Recipe</th>--%>
+<%--            <th>Delete Recipe</th>--%>
+<%--        </tr>--%>
         <c:forEach items="${recipesList}" var="recipe">
-            <tr>
-                <td><img src="<c:out value="${recipe.getImageUrl()}"/>" alt="N/A" width="100"></td>
-                <td><c:out value="${recipe.getRecipeId()}" /></td>
-                <td><c:out value="${recipe.getRecipeName()}" /></td>
-                <td><a href="updaterecipe?recipeid=<c:out value="${recipe.getRecipeId()}"/>&recipename=<c:out value="${recipe.getRecipeName()}"/>&imgurl=<c:out value="${recipe.getImageUrl()}"/>">Update</a></td>
-                <td><a href="deleterecipe?recipeid=<c:out value="${recipe.getRecipeId()}"/>&recipename=<c:out value="${recipe.getRecipeName()}"/>">Delete</a></td>
-                    <%--            <td><a href="userdelete?username=<c:out value="${recipe.getUserName()}"/>">Delete</a></td>--%>
-                    <%--            <td><a href="userupdate?username=<c:out value="${recipe.getUserName()}"/>">Update</a></td>--%>
-            </tr>
+<%--            <tr>--%>
+<%--                <td><img src="<c:out value="${recipe.getImageUrl()}"/>" alt="N/A" width="100"></td>--%>
+<%--                <td><c:out value="${recipe.getRecipeId()}" /></td>--%>
+<%--                <td><c:out value="${recipe.getRecipeName()}" /></td>--%>
+<%--                <td><button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover title" data-content="<c:out value="${recipe.getCookingDirects()}"/>">Details</button></td>--%>
+<%--                <td><a href="updaterecipe?recipeid=<c:out value="${recipe.getRecipeId()}"/>&recipename=<c:out value="${recipe.getRecipeName()}"/>&imgurl=<c:out value="${recipe.getImageUrl()}"/>">Update</a></td>--%>
+<%--                <td><a href="deleterecipe?recipeid=<c:out value="${recipe.getRecipeId()}"/>&recipename=<c:out value="${recipe.getRecipeName()}"/>">Delete</a></td>--%>
+<%--            </tr>--%>
+
+                <div class="card">
+                    <div class="card-header" id="heading<c:out value="${recipe.getRecipeId()}"/>">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse<c:out value="${recipe.getRecipeId()}"/>" aria-expanded="true" aria-controls="collapse<c:out value="${recipe.getRecipeId()}"/>">
+                                <img src="<c:out value="${recipe.getImageUrl()}"/>" alt="N/A" width="100">
+                                <c:out value="${recipe.getRecipeId()}" />&nbsp;&nbsp;
+                                <c:out value="${recipe.getRecipeName()}" />
+                            </button>
+                            <a href="updaterecipe?recipeid=<c:out value="${recipe.getRecipeId()}"/>&recipename=<c:out value="${recipe.getRecipeName()}"/>&imgurl=<c:out value="${recipe.getImageUrl()}"/>">Update</a>
+                            <a href="deleterecipe?recipeid=<c:out value="${recipe.getRecipeId()}"/>&recipename=<c:out value="${recipe.getRecipeName()}"/>">Delete</a>
+                        </h2>
+                    </div>
+
+                    <div id="collapse<c:out value="${recipe.getRecipeId()}"/>" class="collapse" aria-labelledby="heading<c:out value="${recipe.getRecipeId()}"/>" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <c:out value="${recipe.getCookingDirects()}"/>
+                        </div>
+                    </div>
+                </div>
+
         </c:forEach>
-    </table>
+<%--    </table>--%>
+    </div>
 </div>
 </body>
 </html>

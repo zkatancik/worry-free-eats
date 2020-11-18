@@ -8,7 +8,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Create a User</title>
+    <title>Create a Recipe</title>
 </head>
 <body>
 <h1>Create Recipe</h1>
@@ -16,6 +16,10 @@
     <p>
         <label for="recipename">RecipeName</label>
         <input id="recipename" name="recipename" value="">
+    </p>
+    <p>
+        <label for="cookingdirects">CookingDirects</label>
+        <textarea id="cookingdirects" name="cookingdirects" cols="50"></textarea>
     </p>
     <p>
         <label for="imageurl">ImageUrl</label>

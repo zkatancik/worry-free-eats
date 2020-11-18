@@ -22,6 +22,10 @@
         <input id="recipename" name="recipename" value="${fn:escapeXml(param.recipename)}">
     </p>
     <p>
+        <label for="cookingdirects">New cooking directs</label>
+        <textarea id="cookingdirects" name="cookingdirects">${fn:escapeXml(param.cookingdirects)}</textarea>
+    </p>
+    <p>
         <label for="imgurl">New image url</label>
         <input id="imgurl" name="imgurl" value="${fn:escapeXml(param.imgurl)}">
     </p>
