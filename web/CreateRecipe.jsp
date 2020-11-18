@@ -8,30 +8,34 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <%@include file="component/csshead.jsp"%>
     <title>Create a Recipe</title>
 </head>
 <body>
-<h1>Create Recipe</h1>
-<form action="createrecipe" method="post">
-    <p>
-        <label for="recipename">RecipeName</label>
-        <input id="recipename" name="recipename" value="">
-    </p>
-    <p>
-        <label for="cookingdirects">CookingDirects</label>
-        <textarea id="cookingdirects" name="cookingdirects" cols="50"></textarea>
-    </p>
-    <p>
-        <label for="imageurl">ImageUrl</label>
-        <input id="imageurl" name="imageurl" value="">
-    </p>
-    <p>
-        <input type="submit">
-    </p>
-</form>
-<br/><br/>
-<p>
-    <span id="successMessage"><b>${messages.success}</b></span>
-</p>
+<%@include file="component/navbar.jsp"%>
+    <div class="container">
+        <h1>Create Recipe</h1>
+        <form action="createrecipe" method="post">
+            <p>
+                <label for="recipename">RecipeName</label>
+                <input id="recipename" name="recipename" value="">
+            </p>
+            <p>
+                <label for="cookingdirects">CookingDirects</label>
+                <textarea id="cookingdirects" name="cookingdirects" cols="50"></textarea>
+            </p>
+            <p>
+                <label for="imageurl">ImageUrl</label>
+                <input id="imageurl" name="imageurl" value="">
+            </p>
+            <p>
+                <input type="submit">
+            </p>
+        </form>
+        <br/><br/>
+        <p>
+            <span id="successMessage"><b>${messages.success}</b></span>
+        </p>
+    </div>
 </body>
 </html>
