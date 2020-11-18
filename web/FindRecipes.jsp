@@ -71,6 +71,7 @@
                             </button>
                             <a href="updaterecipe?recipeid=<c:out value="${recipe.getRecipeId()}"/>&recipename=<c:out value="${recipe.getRecipeName()}"/>&imgurl=<c:out value="${recipe.getImageUrl()}"/>">Update</a>
                             <a href="deleterecipe?recipeid=<c:out value="${recipe.getRecipeId()}"/>&recipename=<c:out value="${recipe.getRecipeName()}"/>">Delete</a>
+                            <a href="findreviews?recipeid=<c:out value="${recipe.getRecipeId()}"/>">Review</a>
                         </h2>
                     </div>
 
