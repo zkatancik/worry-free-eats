@@ -20,10 +20,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-
-@WebServlet("/createUser")
-	
 	public class CreateUser extends HttpServlet {
 		  protected UsersDao usersDao;
 		  @Override

@@ -7,19 +7,19 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Update Likes</h1>
-	<form action="Updatelikes" method="post">
+	<h1>Update Favorites</h1>
+	<form action="updatefavorites" method="post">
 		<p>
-			<label for="likeId">LikeId</label>
-			<input id="likeId" name="likeId" value="${likes.getLikeId()}">
+			<label for="favoriteId">FavoriteId</label>
+			<input id="favoriteId" name="favoriteId" value="${favorites.getFavoriteId()}">
 		</p>
 		<p>
 			<label for="recipeID">RecipeID</label>
-			<input id="recipeID" name="recipeID" value="${likes.getRecipe().getRecipeId()}">
+			<input id="recipeID" name="recipeID" value="${favorites.getRecipe().getRecipeId()}">
 		</p>
 		<p>
 			<label for="userId">UserId</label>
-			<input id="userId" name="userId" value="${likes.getUsers().getUserId()}">
+			<input id="userId" name="userId" value="${favorites.getUsers().getUserId()}">
 		</p>
 		<p>
 			<input type="submit">

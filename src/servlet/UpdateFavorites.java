@@ -17,7 +17,7 @@ import Model.*;
 /**
  * Servlet implementation class UpdateReview
  */
-@WebServlet("/updatelikes")
+@WebServlet("/updatefavorites")
 public class UpdateFavorites extends HttpServlet {
        
 protected FavoritesDao favoritesDao;

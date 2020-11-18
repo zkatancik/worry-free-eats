@@ -17,8 +17,6 @@ import Dao.UsersDao;
 import Model.Recipes;
 import Model.Users;
 
-
-@WebServlet("/updateuser")
 public class UpdateUser extends HttpServlet {
 	protected UsersDao usersDao;
 	

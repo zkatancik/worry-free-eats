@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/deleteUserAllergies")
+
 public class DeleteUserAllergies extends HttpServlet {
 	
 
@@ -21,7 +21,7 @@ public class DeleteUserAllergies extends HttpServlet {
 		
 		@Override
 		public void init() throws ServletException {
-			userAllergiesDao = userAllergiesDao.getInstance();
+			userAllergiesDao = UserAllergiesDao.getInstance();
 		}
 		
 		@Override

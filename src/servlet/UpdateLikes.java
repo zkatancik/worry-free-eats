@@ -25,13 +25,13 @@ public class UpdateLikes extends HttpServlet {
      * @see HttpServlet#HttpServlet()
      */
     public UpdateLikes() {
-        super();
         likesDao = LikesDao.getInstance();
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		Map<String,String> message = new HashMap<String, String>();
@@ -51,6 +51,7 @@ public class UpdateLikes extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		Map<String,String> message = new HashMap<String, String>();
