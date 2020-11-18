@@ -91,7 +91,7 @@ public class LikesDao {
         int userId = results.getInt("UserId");
 
         Recipes recipe = recipesDao.getRecipeById(recipeID);
-        Users users = usersDao.getUsersById(userId);
+        Users users = usersDao.getUserById(userId);
         Likes likes = new Likes(resultLikeId, recipe, users);
         return likes;
       }
@@ -133,7 +133,7 @@ public class LikesDao {
         int recipeID = results.getInt("RecipeID");
 
         Recipes recipe = recipesDao.getRecipeById(recipeID);
-        Users users = usersDao.getUsersById(userId);
+        Users users = usersDao.getUserById(userId);
         Likes likes = new Likes(likeId, recipe, users);
         likesList.add(likes);
       }
