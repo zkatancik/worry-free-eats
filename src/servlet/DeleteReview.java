@@ -36,12 +36,7 @@ public class DeleteReview extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-        Map<String, String> messages = new HashMap<String, String>();
-        req.setAttribute("messages", messages);
-        // Provide a title and render the JSP.
-        messages.put("title", "Delete Review");        
-        req.getRequestDispatcher("/DeleteReview.jsp").forward(req, resp);
+		doPost(req, resp);
 	}
 
 	/**

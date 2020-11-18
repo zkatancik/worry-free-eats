@@ -45,6 +45,7 @@
             <th>RecipeName</th>
             <th>Update Recipe</th>
             <th>Delete Recipe</th>
+            <th>Get Reviews</th>
         </tr>
         <c:forEach items="${recipesList}" var="recipe">
             <tr>
@@ -55,6 +56,7 @@
                 <td><a href="deleterecipe?recipeid=<c:out value="${recipe.getRecipeId()}"/>&recipename=<c:out value="${recipe.getRecipeName()}"/>">Delete</a></td>
                     <%--            <td><a href="userdelete?username=<c:out value="${recipe.getUserName()}"/>">Delete</a></td>--%>
                     <%--            <td><a href="userupdate?username=<c:out value="${recipe.getUserName()}"/>">Update</a></td>--%>
+                <td><a href="findreviews?recipeid=<c:out value="${recipe.getRecipeId()}"/>">Review</a></td>
             </tr>
         </c:forEach>
     </table>

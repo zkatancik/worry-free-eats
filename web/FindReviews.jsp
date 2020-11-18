@@ -19,6 +19,8 @@
                 <th>Rating</th>
                 <th>RecipeId</th>
                 <th>UserId</th>
+                <th>Update</th>
+                <th>Delete</th>
             </tr>
             <c:forEach items="${reviews}" var="review" >
                 <tr>
@@ -27,6 +29,8 @@
                     <td><c:out value="${review.getRating()}" /></td>
                     <td><c:out value="${review.getRecipeId()}" /></td>
                     <td><c:out value="${review.getUserId()}" /></td>
+                    <td><a href="updatereview?reviewid=<c:out value="${review.getReviewId()}"/>">Update</a></td>
+                    <td><a href="deletereview?reviewid=<c:out value="${review.getReviewId()}"/>">Delete</a></td>
                 </tr>
             </c:forEach>
        </table>
