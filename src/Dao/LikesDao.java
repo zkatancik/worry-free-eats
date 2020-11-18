@@ -31,7 +31,7 @@ public class LikesDao {
 
   public Likes create(Likes likes) throws SQLException {
     String insertLikes =
-        "INSERT INTO Favorites(RecipeID,UserId) " +
+        "INSERT INTO Likes(RecipeID,UserId) " +
             "VALUES(?,?);";
     Connection connection = null;
     PreparedStatement insertStmt = null;
