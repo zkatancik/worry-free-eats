@@ -24,6 +24,10 @@ public class Reviews {
 		this.userId = userId;
 	}
 
+	public Reviews(Integer reviewId) {
+		this.reviewId = reviewId;
+	}
+
 	public Integer getReviewId() {
 		return reviewId;
 	}

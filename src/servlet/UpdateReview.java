@@ -1,4 +1,4 @@
-package eat.servlet;
+package servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import eat.dal.ReviewsDao;
-import eat.model.Reviews;
+import Dao.ReviewsDao;
+import Model.Reviews;
 
 /**
  * Servlet implementation class UpdateReview

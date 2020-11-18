@@ -1,7 +1,7 @@
-package eat.servlet;
+package servlet;
 
-import eat.dal.*;
-import eat.model.*;
+import Dao.*;
+import Model.*;
 
 import java.io.IOException;
 import java.sql.SQLException;

@@ -20,13 +20,15 @@ import javax.servlet.http.HttpServletResponse;
 
 
 @WebServlet("/ingredientcreate")
-public class IngredientCreate extends HttpServlet {
+public class CreateIngredient extends HttpServlet {
 	
 	protected IngredientDao ingredientDao;
+	protected AllergyTypesDao allergyTypesDao;
 	
 	@Override
 	public void init() throws ServletException {
 		ingredientDao = IngredientDao.getInstance();
+		allergyTypesDao = AllergyTypesDao.getInstance();
 	}
 	
 	@Override
@@ -56,10 +58,10 @@ public class IngredientCreate extends HttpServlet {
             String name = null;
             name = req.getParameter("name");
             AllergyTypes allergyTypes = null;
-        	allergyTypes = req.getParameter("allergyTypes");
 	        try {
 	        	// Exercise: parse the input for StatusLevel.
-	        	Ingredient ingredient = new Ingredient(ingredientId, name, allergyTypes);
+						allergyTypes = allergyTypesDao.getAllergyByAllergyTypesId(Integer.parseInt(req.getParameter("allergyTypes")));
+						Ingredient ingredient = new Ingredient(ingredientId, name, allergyTypes);
 	        	ingredient = ingredientDao.create(ingredient);
 	        	messages.put("success", "Successfully created " + name);
 	        } catch (SQLException e) {

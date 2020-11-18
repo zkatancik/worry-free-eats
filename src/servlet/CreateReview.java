@@ -1,5 +1,7 @@
-package eat.servlet;
+package servlet;
 
+import Dao.ReviewsDao;
+import Model.Reviews;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -11,8 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import eat.dal.ReviewsDao;
-import eat.model.Reviews;
 
 /**
  * Servlet implementation class CreateReview

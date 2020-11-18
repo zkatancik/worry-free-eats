@@ -2,7 +2,6 @@ package servlet;
 
 import Dao.*;
 import Model.Ingredient;
-import model.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
