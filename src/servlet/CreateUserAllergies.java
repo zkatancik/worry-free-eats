@@ -1,5 +1,6 @@
 package servlet;
 
+import Dao.UsersDao;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -11,16 +12,21 @@ import java.util.Map;
 import Dao.UserAllergiesDao;
 import Model.UserAllergies;
 import Model.Users;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/createUserAllergies")
-
 public class CreateUserAllergies extends HttpServlet {
 	protected UserAllergiesDao userAllergiesDao;
+	protected UsersDao usersDao;
 	
 	@Override
 	public void init() throws ServletException {
-		userAllergiesDao = userAllergiesDao.getInstance();
-		
+		userAllergiesDao = UserAllergiesDao.getInstance();
+		usersDao = UsersDao.getInstance();
 	}
 	
 	
@@ -46,8 +52,6 @@ public class CreateUserAllergies extends HttpServlet {
         if (idString == null || idString.trim().isEmpty()) {
             messages.put("success", "Invalid AllergyId");
         } else {
-        	
-        	Users user = req.getParameter("user");
         	String allergyIdStr = req.getParameter("allergiesTypesId");
        
        
@@ -55,21 +59,15 @@ public class CreateUserAllergies extends HttpServlet {
         	int allergyId = Integer.parseInt(allergyIdStr);
         	
         	try {
-        	   user = req.getParameter("user");
-        	} catch (ParseException e) {
-        		e.printStackTrace();
-				throw new IOException(e);
-        	}
-	        try {
-	        	UserAllergies userAllergies = new UserAllergies(id, user, allergyId);
-	        	userAllergies = userAllergiesDao.create(userAllergies);
-	        	messages.put("success", "Successfully created " + id);
-	        } catch (SQLException e) {
-				e.printStackTrace();
-				throw new IOException(e);
+						Users user = usersDao.getUserFromUserName(req.getParameter("user"));
+						UserAllergies userAllergies = new UserAllergies(id, user, allergyId);
+						userAllergies = userAllergiesDao.create(userAllergies);
+						messages.put("success", "Successfully created " + id);
+        	} catch (SQLException e) {
+						e.printStackTrace();
+						throw new IOException(e);
 	        }
         }
-        
         req.getRequestDispatcher("/CreateUserAllergies.jsp").forward(req, resp);
     }
 }

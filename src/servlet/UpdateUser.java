@@ -25,7 +25,7 @@ public class UpdateUser extends HttpServlet {
 	 @Override
 	  public void init() throws ServletException {
 		 usersDao = usersDao.getInstance();
-	  
+	 }
 	 
 	 
 	  @Override

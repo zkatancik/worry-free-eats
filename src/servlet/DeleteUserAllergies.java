@@ -5,10 +5,13 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import Dao.AllergyTypesDao;
 import Dao.UserAllergiesDao;
-import Model.AllergyTypes;
 import Model.UserAllergies;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/deleteUserAllergies")
 public class DeleteUserAllergies extends HttpServlet {

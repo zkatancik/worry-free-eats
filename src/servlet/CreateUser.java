@@ -65,19 +65,14 @@ import javax.servlet.http.HttpServletResponse;
 		        	Timestamp lastLogin = Timestamp.from(Instant.now());  
 		        	int userId = Integer.parseInt(userIdString);
 		        	try {
-		        	   	name = req.getParameter("name");
-		        	} catch (ParseException e) {
-		        		e.printStackTrace();
-						throw new IOException(e);
-		        	}
-			        try {
+		        		name = req.getParameter("name");
 			        	Users user = new Users(userId, userName, password, name, email, createdTime, 
 			        			lastModifiedTime, lastLogin);
 			        	user = usersDao.create(user);
 			        	messages.put("success", "Successfully created " + userId);
 			        } catch (SQLException e) {
-						e.printStackTrace();
-						throw new IOException(e);
+								e.printStackTrace();
+								throw new IOException(e);
 			        }
 		        }
 		        
