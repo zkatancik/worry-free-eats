@@ -1,6 +1,8 @@
 package Dao;
 
 import Model.UserAllergies;
+import Model.Users;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -43,7 +45,7 @@ public class UserAllergiesDao {
       connection = connectionManager.getConnection();
       insertStmt = connection.prepareStatement(insertUserAllergies,
           Statement.RETURN_GENERATED_KEYS);
-      insertStmt.setString(2, userAllergies.getUserName());
+      insertStmt.setString(2, userAllergies.getUserName().getUserName());
       insertStmt.setInt(1, userAllergies.getAllergiesTypesId());
       insertStmt.executeUpdate();
 
@@ -84,6 +86,7 @@ public class UserAllergiesDao {
     PreparedStatement selectStmt = null;
     ResultSet results = null;
     try {
+      UsersDao usersDao = UsersDao.getInstance();
       connection = connectionManager.getConnection();
       selectStmt = connection.prepareStatement(selectUserAllergies);
       selectStmt.setString(1, userName);
@@ -92,7 +95,8 @@ public class UserAllergiesDao {
         Integer id = results.getInt("ID");
         String resultUserName = results.getString("UserName");
         Integer allergyTypesId = results.getInt("AllergyTypesId");
-        UserAllergies userAllergies = new UserAllergies(id, resultUserName, allergyTypesId);
+        Users user = usersDao.getUserFromUserName(resultUserName);
+        UserAllergies userAllergies = new UserAllergies(id, user, allergyTypesId);
         userAllergiesList.add(userAllergies);
       }
     } catch (SQLException e) {
@@ -132,12 +136,13 @@ public class UserAllergiesDao {
       selectStmt = connection.prepareStatement(selectUserAllergiesId);
       selectStmt.setInt(1, userId);
       results = selectStmt.executeQuery();
-
+      UsersDao usersDao = UsersDao.getInstance();
       if(results.next()) {
         Integer resultUserId = results.getInt("ID");
         String userName = results.getString("UserName");
         Integer allergyTypesId = results.getInt("AllergyTypesId");
-        UserAllergies userAllergiesId = new UserAllergies(resultUserId, userName, allergyTypesId);
+        Users user = usersDao.getUserFromUserName(userName);
+        UserAllergies userAllergiesId = new UserAllergies(resultUserId, user, allergyTypesId);
 
         return userAllergiesId;
       }

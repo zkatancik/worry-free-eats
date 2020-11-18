@@ -87,7 +87,7 @@ public class FavoritesDao {
 	        int recipeID = results.getInt("RecipeID");
 	        int userId = results.getInt("UserId");
 	        Recipes recipe = recipeDao.getRecipeById(recipeID);
-	        Users users = usersDao.getUsersById(userId);
+	        Users users = usersDao.getUserById(userId);
 	        Favorites favorites = new Favorites(resultFavoriteId, recipe, users);
 	        return favorites;
 	      }
@@ -129,7 +129,7 @@ public class FavoritesDao {
 	        int recipeID = results.getInt("RecipeID");
 
 	        Recipes recipe = recipeDao.getRecipeById(recipeID);
-	        Users users = usersDao.getUsersById(userId);
+	        Users users = usersDao.getUserById(userId);
 	        Favorites favorites = new Favorites(favoriteId, recipe, users);
 	        favoritesList.add(favorites);
 	      }

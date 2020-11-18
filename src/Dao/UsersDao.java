@@ -73,15 +73,12 @@ public class UsersDao {
 
 
   /**
-   * Get the User record 
+   * Get the User record
    * This runs a SELECT statement and returns a single User instance, By ID.
    */
 
-  public Users getUsersById(int userId) throws SQLException {
-    String selectUserId =
-        "SELECT ID,UserName,Password,Name,Email,CreatedTime,LastModifiedTime,LastLogin" +
-            "FROM Users "
-            + "WHERE ID=?;";
+  public Users getUserById(int userId) throws SQLException {
+    String selectUserId = "SELECT * FROM Users WHERE UserId=?;";
     Connection connection = null;
     PreparedStatement selectStmt = null;
     ResultSet results = null;
@@ -92,7 +89,7 @@ public class UsersDao {
       results = selectStmt.executeQuery();
 
       if(results.next()) {
-        int resultUserId = results.getInt("ID");
+        int resultUserId = results.getInt("UserId");
         String userName = results.getString("UserName");
         String password = results.getString("Password");
         String name = results.getString("Name");
@@ -132,7 +129,7 @@ public class UsersDao {
 
 
   public Users getUserFromUserName(String userName) throws SQLException {
-    String selectUser = "SELECT UserName FROM Users WHERE UserName=?;";
+    String selectUser = "SELECT * FROM Users WHERE UserName=?;";
     Connection connection = null;
     PreparedStatement selectStmt = null;
     ResultSet results = null;
@@ -143,6 +140,7 @@ public class UsersDao {
       results = selectStmt.executeQuery();
 
       if(results.next()) {
+    	int userId = results.getInt("UserId");
         String resultUserName = results.getString("UserName");
         String password = results.getString("Password");
         String name = results.getString("Name");
@@ -151,7 +149,7 @@ public class UsersDao {
         Timestamp lastModifiedTime = results.getTimestamp("LastModifiedTime");
         Timestamp lastLogin = results.getTimestamp("LastLogin");
 
-        Users user = new Users(resultUserName, password, name, email, createdTime, lastModifiedTime,
+        Users user = new Users(userId, resultUserName, password, name, email, createdTime, lastModifiedTime,
             lastLogin);
         return user;
       }
@@ -186,7 +184,7 @@ public class UsersDao {
       connection = connectionManager.getConnection();
       updateStmt = connection.prepareStatement(updateUserName);
       updateStmt.setString(1, newUserName);
-      updateStmt.setString(1, user.getUserName());
+      updateStmt.setString(2, user.getUserName());
       updateStmt.executeUpdate(newUserName);
       user.setUserName(newUserName);
       return user;

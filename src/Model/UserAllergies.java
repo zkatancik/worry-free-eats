@@ -3,15 +3,15 @@ package Model;
 public class UserAllergies {
   private Integer id;
   private Integer allergiesTypesId;
-  private String userName;
+  private Users userName;
 
 
-  public UserAllergies(Integer id, String userName, Integer allergiesTypesId) {
+  public UserAllergies(Integer id, Users userName, Integer allergiesTypesId) {
     this.allergiesTypesId = allergiesTypesId;
     this.userName = userName;
   }
 
-  public UserAllergies(String userName, Integer allergiesTypesId) {
+  public UserAllergies(Users userName, Integer allergiesTypesId) {
     this.allergiesTypesId = allergiesTypesId;
     this.userName = userName;
   }
@@ -36,11 +36,11 @@ public class UserAllergies {
     this.allergiesTypesId = allergiesTypesId;
   }
 
-  public String getUserName() {
+  public Users getUserName() {
     return userName;
   }
 
-  public void setUserName(String userName) {
+  public void setUserName(Users userName) {
     this.userName = userName;
   }
 }
